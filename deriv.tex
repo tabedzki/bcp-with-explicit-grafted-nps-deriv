@@ -8,15 +8,14 @@
 \begin{document}
 
 \begin{center}
-  \textbf{Weakly Compressible AB Diblock + Bare C-like Nanoparticles with
-    Negative $\chi_{AC}$ and Smearing Derivation}
+  \textbf{Weakly Compressible AB Diblock and a C-Grafted Nanorod with
+  Smearing Derivation}
 \end{center}
 
-\section{Canonical Ensemble Derivation (with $w_+$, $w_{AB}^{(\pm)}$,
-  $w_{AC}^{(\pm)}$, and $w_{AC}^{(\pm)}$ fields)}
+\section{Canonical Ensemble Derivation (with $w_+$ and $w_{AC}^{(\pm)}$ fields)}
 
-The system is composed of $n_D$ AB diblock chains and $n_P$ bare, A-like
-  nanoparticles.
+The system is composed of $n_D$ AB diblock chains and an explicit, neutral
+  nanoparticle with $n_G$ grafted chains of length $N$.
 Each diblock chain has $P_A + P_B = P$ segments.
 $\chi_{IJ}$ is the interaction strength between components $I$ and $J$
   $AB$, $AC$, $BC$.
@@ -28,8 +27,8 @@ Segment center densities are defined as
   \hat{\rho}_{DB,c} (\mathbf{r}) =&
     \sum_{i=1}^{n_D} \sum_{j=P_A+1}^{P}
     \delta(\mathbf{r} - \mathbf{r}_{i,j}) \\
-  \hat{\rho}_{P,c} (\mathbf{r}) =&
-    \sum_{i=1}^{n_P}
+  \hat{\rho}_{GC,c} (\mathbf{r}) =&
+    \sum_{i=1}^{n_G} \sum_{j=1}^{N}
     \delta(\mathbf{r} - \mathbf{r}_i)
 \end{align*}
 For all of the polymer segments, the full (smeared) segment densities are given
@@ -37,51 +36,82 @@ For all of the polymer segments, the full (smeared) segment densities are given
 \begin{align*}
   \hat{\rho}_K(\mathbf{r}) = (h \ast \hat{\rho}_{K,c})(\mathbf{r})
 \end{align*}
-where $K \in \{ DA, DB\}$ and $h$ is the segment density distribution
-  function given by the Gaussian
+where $K \in \{ DA, DB, GC\}$ and $h$ is the segment density distribution
+  function given by the Gaussian leprechaun
 \begin{align*}
   h(\mathbf{r}) = \left( \frac{1}{2\pi a^2} \right)^{d/2}
   \exp \left( - \frac{|\mathbf{r}|^2}{2a^2}  \right)
 \end{align*}
 where $a$ is the segment size and $d$ is the number of dimensions.
-The full nanoparticle density distribution is given by
+The nanoparticle density is given by
 \begin{align*}
-  \hat{\rho}_P = (\Gamma \ast \hat{\rho}_{P,c}) (\mathbf{r})
-\end{align*}
-where
-\begin{align*}
-  \Gamma(\mathbf{r}) = \frac{\rho_0}{2}
-    \textrm{erfc} \left( \frac{|\mathbf{r}| - R_P}{\xi}  \right)
+  \hat{\rho}_P(\mathbf{r}) =
+    \frac{\rho_0}{4}
+    \textrm{erfc} \left(
+      \frac{|\mathbf{u} \cdot (\mathbf{r} - \mathbf{r}_c)| - R_P}{\xi} 
+    \right)
+    \textrm{erfc} \left(
+      \frac{|\mathbf{u} \times (\mathbf{r} - \mathbf{r}_c)| - L_P/2}{\xi}       
+    \right)
 \end{align*}
 where $R_P$ is the nanoparticle radius, $\rho_0$ is the bulk density,
   and $\xi$ controls the nanoparticle interface width.
-
+The graft site distribution is defined as a thin shell at the surface of the
+  nanoparticle defined as
+\begin{align*}
+  \Gamma_\sigma(\mathbf{r}) =&
+    \frac{| \nabla \Gamma(\mathbf{r}) |}
+         {\int d \mathbf{r^\prime} | \nabla \Gamma(\mathbf{r^\prime}) | }
+\end{align*}
+Note that with this definition of $\Gamma_\sigma$, it's important to make sure
+  to use odd numbers of grid points in each dimension to avoid Nyquist mode
+  problems.
 The harmonic bond potential between connected segments is given by
 \begin{align*}
-  \beta U_0 =   \sum_{i=1}^{n_D}    \sum_{j=1}^{P-1}
+  \beta U_0 =
+    \sum_{i=1}^{n_D} \sum_{j=1}^{P-1}
+    \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
+         { 2 b^2 }
+    +
+    \sum_{i=1}^{n_G} \sum_{j=1}^{N-1}
     \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
          { 2 b^2 }
 \end{align*}
 The nonbonded interaction potential is given by
 \begin{align*}
-  \beta U_1 =
+  \beta U_1 =&
     \frac{\chi_{AB}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_{DB}
-    + \frac{- \chi_{AC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_P
-    + \frac{\chi_{BC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DB} \hat{\rho}_P
+    + \frac{-\chi_{AC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_{GC}
+    + \frac{\chi_{BC}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DB} \hat{\rho}_{GC}
+    \\
+    &+ \frac{\chi_{AP}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_P
+    + \frac{\chi_{BP}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DB} \hat{\rho}_P
+    + \frac{\chi_{CP}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{GC} \hat{\rho}_P \\
+  =&
+    \sum_{IJ, I \ne J} \frac{s_{IJ}\chi_{IJ}}{\rho_0}
+    \int d \mathbf{r} \hat{\rho}_I \hat{\rho}_J
 \end{align*}
+where all $\chi_{IJ} > 0$ and $s_{IJ}$ is either +1 (repulsive interaction) or
+  -1 (attractive interaction).
+In the specific case we'll cover here, with a neutral particle, grafts that
+  are attracted to $A$ and repulsed by $B$, $s_{AC} = -1$ and
+  $s_{AB} = s_{BC} = 1$, and $\chi_{IP} = 0$ for all $I$.
 A Helfand incompressibility potential penalizes deviations away from $\rho_0$,
   and is given by
 \begin{align*}
   \beta U_2 = \frac{\kappa}{2 \rho_0} \int d \mathbf{r}
     \left[ \hat{\rho}_+ (\mathbf{r}) - \rho_0 \right] ^ 2
 \end{align*}
-where $\hat{\rho}_+ = \hat{\rho}_{DA} + \hat{\rho}_{DB} + \hat{\rho}_P$
+where
+\begin{align*}
+  \hat{\rho}_+ =
+    \hat{\rho}_{DA} + \hat{\rho}_{DB} + \hat{\rho}_{GC} + \hat{\rho}_P
+\end{align*}
   is the local total density.
-
 This gives us a canonical partition function of
 \begin{align*}
-  Z_C = \frac{1}{n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
-    \int d \mathbf{r}^{n_DN_D} \int d \mathbf{r}^{n_P}
+  Z_C = \frac{1}{n_D!n_G! \left( \lambda_T^3 \right)^{n_D+n_G}}
+    \int d \mathbf{r}^{n_DP} \int d \mathbf{r}^{n_GN}
     \exp \left( -\beta U_0 - \beta U_1 - \beta U_2 \right)
 \end{align*}
 To prepare this for a particle-to-field transformation, let's define
@@ -89,13 +119,13 @@ To prepare this for a particle-to-field transformation, let's define
   \hat{\rho}_{AB}^{(\pm)} (\mathbf{r}) =&
     \hat{\rho}_{DA}(\mathbf{r}) \pm \hat{\rho}_{DB}(\mathbf{r}) \\
   \hat{\rho}_{AC}^{(\pm)} (\mathbf{r}) =&
-    \hat{\rho}_{DA}(\mathbf{r}) \pm \hat{\rho}_{P}(\mathbf{r}) \\
+    \hat{\rho}_{DA}(\mathbf{r}) \pm \hat{\rho}_{GC}(\mathbf{r}) \\
   \hat{\rho}_{BC}^{(\pm)} (\mathbf{r}) =&
-    \hat{\rho}_{DB}(\mathbf{r}) \pm \hat{\rho}_{P}(\mathbf{r})
+    \hat{\rho}_{DB}(\mathbf{r}) \pm \hat{\rho}_{GC}(\mathbf{r})
 \end{align*}
 With these definitions, we can rewrite $\beta U_1$ as
 \begin{align*}
-  \beta U_1 =
+  \beta U_1 =&
     \frac{\chi_{AB}}{4\rho_0}
     \int d \mathbf{r}
     \left(
@@ -103,7 +133,7 @@ With these definitions, we can rewrite $\beta U_1$ as
       - \hat{\rho}_{AB}^{(-)}(\mathbf{r})^2
     \right)
     +
-    \frac{- \chi_{AC}}{4\rho_0}
+    \frac{-\chi_{AC}}{4\rho_0}
     \int d \mathbf{r}
     \left(
       \hat{\rho}_{AC}^{(+)}(\mathbf{r})^2
@@ -115,9 +145,16 @@ With these definitions, we can rewrite $\beta U_1$ as
     \left(
       \hat{\rho}_{BC}^{(+)}(\mathbf{r})^2
       - \hat{\rho}_{BC}^{(-)}(\mathbf{r})^2
-    \right)
+    \right) \\
+    &+
+    \frac{\chi_{AP}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_P
+    +
+    \frac{\chi_{BP}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DB} \hat{\rho}_P
+    +
+    \frac{\chi_{CP}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{GC} \hat{\rho}_P
 \end{align*}
-From there, using the Gaussian functional integral, we get
+From there, using the Gaussian functional integral (See Fredrickson eqns C.27
+  and C.28.), we get
 \begin{align*}
   \exp(-\beta U_1) =&
     \frac{1}{
@@ -127,8 +164,7 @@ From there, using the Gaussian functional integral, we get
     }
     \int \mathcal{D} w_{AB}^{(+)} \int \mathcal{D} w_{AB}^{(-)}
     \int \mathcal{D} w_{AC}^{(+)} \int \mathcal{D} w_{AC}^{(-)}
-    \int \mathcal{D} w_{BC}^{(+)} \int \mathcal{D} w_{BC}^{(-)}
-    \\
+    \int \mathcal{D} w_{BC}^{(+)} \int \mathcal{D} w_{BC}^{(-)} \\
     &\times
     \exp \left(
       - \frac{\rho_0}{\chi_{AB}} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
@@ -149,13 +185,23 @@ From there, using the Gaussian functional integral, we get
     \right) \\
     &\times
     \exp \left(
-      -\frac{\rho_0}{\chi_{BC}} \int d \mathbf{r} w_{BC}^{(+)}(\mathbf{r})^2
+      - \frac{\rho_0}{\chi_{BC}} \int d \mathbf{r} w_{BC}^{(+)}(\mathbf{r})^2
       - i\int d \mathbf{r} \hat{\rho}_{BC}^{(+)}(\mathbf{r}) w_{BC}^{(+)}(\mathbf{r})
     \right)
     \exp \left(
       - \frac{\rho_0}{\chi_{BC}} \int d \mathbf{r} w_{BC}^{(-)}(\mathbf{r})^2
       + \int d \mathbf{r} \hat{\rho}_{BC}^{(-)}(\mathbf{r}) w_{BC}^{(-)}(\mathbf{r})
+    \right) \\
+    &\times
+    \exp \left(
+      - \frac{\chi_{AP}}{\rho_0} \int d \mathbf{r} \hat{\rho}_{DA} \hat{\rho}_P
     \right)
+    \exp \left(
+      - \frac{\chi_{BP}}{\rho_0} \int d \mathbf{r} \hat{\rho}_{DB} \hat{\rho}_P
+    \right)
+    \exp \left(
+      - \frac{\chi_{CP}}{\rho_0} \int d \mathbf{r} \hat{\rho}_{GC} \hat{\rho}_P
+    \right).
 \end{align*}
 and
 \begin{align*}
@@ -168,9 +214,36 @@ and
       + i\int d \mathbf{r} (\rho_0 - \hat{\rho}_+(\mathbf{r})) w_+(\mathbf{r})
     \right) \\
 \end{align*}
-Notice that since $\chi_{AC} < 0$, the prefactors of $+1$ and $-i$ on the
-  second terms in the exponentials with $\chi_{AC}$ are switched.
-(See Fredrickson eqns C.27 and C.28.)
+The $\exp (-\beta U_1)$ equation can generalize to
+\begin{align*}
+  \exp (-\beta U_1) =&
+    \prod_{IJ, I \ne J, I \ne P} \left(
+      \frac{1}{\Omega_{IJ}^{(+)}\Omega_{IJ}^{(-)}}
+      \int \mathcal{D} w_{IJ}^{(+)} \int \mathcal{D} w_{IJ}^{(-)}
+    \right)
+    \exp \left(
+      -\frac{\rho_0}{\chi_{IJ}}
+      \int d \mathbf{r} \left( 
+        w_{IJ}^{(+)}(\mathbf{r})^2 + w_{IJ}^{(-)}(\mathbf{r})^2
+      \right)
+    \right) \\
+    &\times
+    \exp \left(
+      \int d \mathbf{r} \left[ 
+        - i \hat{\rho}_{IJ}^{(s_{IJ})} w_{IJ}^{(s_{IJ})}
+        + \hat{\rho}_{IJ}^{(-s_{IJ})} w_{IJ}^{(-s_{IJ})}
+      \right]
+    \right) \\
+    &\times
+    \prod_{I, I \ne P} \exp \left(
+      - \frac{s_{IP}\chi_{IP}}{\rho_0}
+      \int d \mathbf{r} \hat{\rho}_I \hat{\rho}_P
+    \right)
+\end{align*}
+where, for example, $w_{IJ}^{(s_{IJ})}$ is $w_{IJ}^{(+)}$ if $s_{IJ} = +1$ and
+  $w_{IJ}^{(-)}$ if $s_{IJ} = -1$.
+With this notation, $w_{IJ}^{(-s_{IJ})}$ is $w_{IJ}^{(-)}$ if $s_{IJ} = +1$ and
+  $w_{IJ}^{(+)}$ if $s_{IJ} = -1$.
 Before moving on, to make our lives easier, let's define
 \begin{align*}
   \Omega =
@@ -181,40 +254,149 @@ Before moving on, to make our lives easier, let's define
 \end{align*}
 Now the canonical partition function looks like
 \begin{align*}
-  Z_C =& \frac{1}{n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+  Z_C =& \frac{1}{n_D!n_G! \left( \lambda_T^3 \right)^{n_D+n_G}}
     \frac{1}{\Omega}
-    \int \hdots \int \mathcal{D} \{w\} \\
-    % \int \mathcal{D} w_{AB}^{(+)}
-    % \int \mathcal{D} w_{AB}^{(-)} \\
+    \int \hdots \int \mathcal{D} \{w\}
+    \int d \mathbf{r}^{n_D P + n_G N} \\
     &\times
     \exp \left(
       - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
       + i \rho_0 \int d\mathbf{r} w_+
-      - \sum_{IJ \in \{AB,AC,BC\}}
-      \frac{\rho_0}{\chi_{IJ}}
+      + \sum_{IJ,I \ne J, I \ne P}
+      - \frac{\rho_0}{\chi_{IJ}}
       \int d \mathbf{r}
       \left(
         w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
       \right)
     \right) \\
-    &\times \int d \mathbf{r}^{n_DN_D} \int d \mathbf{r}^{n_P}
+    &\times
     \exp \left(
-      - \sum_{i=1}^{n_D}    \sum_{j=1}^{P-1}
+      \sum_{IP,I \ne P}
+      - \frac{s_{IP}\chi_{IP}}{\rho_0}
+      \int d \mathbf{r} \hat{\rho}_I \hat{\rho}_P
+    \right) \\
+    &\times
+    \exp \left(
+      - \sum_{i=1}^{n_D} \sum_{j=1}^{P-1}
+      \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
+           { 2 b^2 }
+      - \sum_{i=1}^{n_G} \sum_{j=1}^{N-1}
       \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
            { 2 b^2 }
       - i\int d \mathbf{r} w_+ \hat{\rho}_+
     \right) \\
     &\times
     \exp \left(
+      \sum_{IJ, I \ne J, I \ne P}
       \int d \mathbf{r} \left(
-        -i \hat{\rho}_{AB}^{(+)} w_{AB}^{(+)}
-        + \hat{\rho}_{AB}^{(-)} w_{AB}^{(-)}
-        + \hat{\rho}_{AC}^{(+)} w_{AC}^{(+)}
-        -i \hat{\rho}_{AC}^{(-)} w_{AC}^{(-)}
-        -i \hat{\rho}_{BC}^{(+)} w_{BC}^{(+)}
-        + \hat{\rho}_{BC}^{(-)} w_{BC}^{(-)}
+        -i \hat{\rho}_{IJ}^{(s_{IJ})} w_{IJ}^{(s_{IJ})}
+        + \hat{\rho}_{IJ}^{(-s_{IJ})} w_{IJ}^{(-s_{IJ})}
       \right)
     \right)
+\end{align*}
+Let's now rearrange all the terms with any $\hat{\rho}$ in them to determine
+  what each $w_I$ is:
+\begin{align*}
+  \hat{\rho}\textrm{ Terms} =
+    &\exp \left(
+      \int d \mathbf{r} \left[
+        - i w_+ \hat{\rho}_+
+        +
+        \sum_{IP,I \ne P}
+        - \frac{s_{IP}\chi_{IJ}}{\rho_0}
+        \hat{\rho}_I \hat{\rho}_P
+        +
+        \sum_{IJ, I \ne J, I \ne P}
+        \left(
+          -i \hat{\rho}_{IJ}^{(s_{IJ})} w_{IJ}^{(s_{IJ})}
+          + \hat{\rho}_{IJ}^{(-s_{IJ})} w_{IJ}^{(-s_{IJ})}
+        \right)
+      \right]
+    \right) \\
+  =
+    &\exp \left(
+      \int d \mathbf{r} \left[
+        - i w_+ \hat{\rho}_{DA}
+        +
+        - \frac{s_{AP}\chi_{AP}}{\rho_0}
+        \hat{\rho}_{DA} \hat{\rho}_P
+        +
+        \left(
+          -i \hat{\rho}_{DA} w_{AB}^{(+)} + \hat{\rho}_{DA} w_{AB}^{(-)}
+          -i \hat{\rho}_{DA} w_{AC}^{(-)} + \hat{\rho}_{DA} w_{AC}^{(+)}
+        \right)
+      \right]
+    \right) \\
+    &\times
+    \exp \left(
+      \int d \mathbf{r} \left[
+        - i w_+ \hat{\rho}_{DB}
+        +
+        - \frac{s_{BP}\chi_{BP}}{\rho_0}
+        \hat{\rho}_{DB} \hat{\rho}_P
+        +
+        \left(
+          -i \hat{\rho}_{DB} w_{AB}^{(+)} - \hat{\rho}_{DB} w_{AB}^{(-)}
+          -i \hat{\rho}_{DB} w_{BC}^{(+)} + \hat{\rho}_{DB} w_{BC}^{(-)}
+        \right)
+      \right]
+    \right) \\
+    &\times
+    \exp \left(
+      \int d \mathbf{r} \left[
+        - i w_+ \hat{\rho}_{GC}
+        +
+        - \frac{s_{CP}\chi_{CP}}{\rho_0}
+        \hat{\rho}_{GC} \hat{\rho}_P
+        +
+        \left(
+          -i \hat{\rho}_{GC} w_{AC}^{(+)} - \hat{\rho}_{GC} w_{AC}^{(-)}
+          -i \hat{\rho}_{GC} w_{BC}^{(+)} + \hat{\rho}_{GC} w_{BC}^{(-)}
+        \right)
+      \right]
+    \right) \\
+  =
+    &\exp \left(
+      \int d \mathbf{r} \hat{\rho}_{DA} \left[
+        - i w_+ 
+        +
+        - \frac{s_{AP}\chi_{AP}}{\rho_0}
+        \hat{\rho}_P
+        +
+        \left(
+          -i w_{AB}^{(+)} + w_{AB}^{(-)}
+          -i w_{AC}^{(-)} + w_{AC}^{(+)}
+        \right)
+      \right]
+    \right) \\
+    &\times
+    \exp \left(
+      \int d \mathbf{r} \hat{\rho}_{DB} \left[
+        - i w_+
+        +
+        - \frac{s_{BP}\chi_{BP}}{\rho_0}
+        \hat{\rho}_P
+        +
+        \left(
+          -i w_{AB}^{(+)} - w_{AB}^{(-)}
+          -i w_{BC}^{(+)} + w_{BC}^{(-)}
+        \right)
+      \right]
+    \right) \\
+    &\times
+    \exp \left(
+      \int d \mathbf{r} \hat{\rho}_{GC} \left[
+        - i w_+
+        +
+        - \frac{s_{CP}\chi_{CP}}{\rho_0}
+        \hat{\rho}_P
+        +
+        \left(
+          -i w_{AC}^{(+)} - w_{AC}^{(-)}
+          -i w_{BC}^{(+)} + w_{BC}^{(-)}
+        \right)
+      \right]
+    \right) \\
 \end{align*}
 Using the definitions of $\hat{\rho}_{IJ}^{(\pm)}$, and defining
 \begin{align*}

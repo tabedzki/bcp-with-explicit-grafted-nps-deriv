@@ -13,7 +13,7 @@
 
 \section{Canonical Ensemble Derivation (with $w_+$ and $w_{AC}^{(\pm)}$ fields)}
 
-The system is composed of $n_D$ A\\B diblock chains and an explicit, neutral
+The system is composed of $n_D$ A\textbackslash B diblock chains and an explicit, neutral
   nanoparticle with $n_G$ grafted chains of length $N$.
 Each diblock chain has $P_A + P_B = P$ segments.
 $\chi_{IJ}$ is the interaction strength between components $I$ and $J$
@@ -356,6 +356,11 @@ Let's now rearrange all the terms with any $\hat{\rho}$ in them to determine
         \right)
       \right]
     \right) \\
+            &\times
+      \exp\left(
+        - \int d \mathbf{r} \hat{\rho}_{P} w_P %possibly? 
+      \right)
+\\
   =
     &\exp \left(
       \int d \mathbf{r} \hat{\rho}_{DA} \left[
@@ -398,11 +403,17 @@ Let's now rearrange all the terms with any $\hat{\rho}$ in them to determine
         \right)
       \right]
     \right) \\
+            &\times
+      \exp\left(
+        - \int d \mathbf{r} \hat{\rho}_{P} w_P %possibly? 
+      \right)
+\\
   =
     &\exp \left(
       - \int d \mathbf{r} \hat{\rho}_{DA} w_A
       - \int d \mathbf{r} \hat{\rho}_{DB} w_B
       - \int d \mathbf{r} \hat{\rho}_{GC} w_C
+       - \int d \mathbf{r} \hat{\rho}_{P} w_P %possibly? 
     \right) \\
 \end{align*}
 where
@@ -417,8 +428,8 @@ where
     + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
   w_C &=\;
     i \left( w_+ - w_{AC}^{(-)} + w_{BC}^{(+)} \right)
-    + w_{AC}^{(+)} + w_{BC}^{(-)}
-    + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+    - w_{AC}^{(+)} + w_{BC}^{(-)}
+    + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
 \end{align*}
 Looking at these field definitions, we can generalize with a rule-based process.
 Here's how we could construct any $w_X$ where X is A, B, or C; J and K
@@ -427,7 +438,7 @@ Here's how we could construct any $w_X$ where X is A, B, or C; J and K
 \begin{enumerate}
   \item Start with
   {
-    \color{red}
+    \color{green}  %verified by Chris and Ben
     \begin{align*}
       w_X &=\;
         i \left( w_+ + w_{XJ}^{(+)} + w_{XK}^{(+)} \right)
@@ -440,12 +451,12 @@ Here's how we could construct any $w_X$ where X is A, B, or C; J and K
   As an example, let's go through the process for $w_C$.
   We start with:
   {
-    \color{red}
+    \color{green}  %verified by Chris and Ben
     \begin{align*}
       w_C &=\;
         i \left( w_+ + w_{AC}^{(+)} + w_{BC}^{(+)} \right)
         - w_{AC}^{(-)} - w_{BC}^{(-)}
-        + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+    + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
     \end{align*}
   }
 
@@ -453,12 +464,12 @@ Here's how we could construct any $w_X$ where X is A, B, or C; J and K
     $(+)$ to a $(-)$ and vice versa.
   This turns $w_C$ into:
   {
-    \color{red}
+  \color{green}  %verified by Chris and Ben
     \begin{align*}
       w_C &=\;
         i \left( w_+ + w_{AC}^{(-)} + w_{BC}^{(+)} \right)
         - w_{AC}^{(+)} - w_{BC}^{(-)}
-        + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+    + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
     \end{align*}
   }
 
@@ -470,7 +481,7 @@ Here's how we could construct any $w_X$ where X is A, B, or C; J and K
       w_C &=\;
         i \left( w_+ - w_{AC}^{(-)} + w_{BC}^{(+)} \right)
         - w_{AC}^{(+)} + w_{BC}^{(-)}
-        + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+    + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
     \end{align*}
   }
 \end{enumerate}
@@ -479,32 +490,31 @@ Here's how we could construct any $w_X$ where X is A, B, or C; J and K
 
 Using the definitions of $\hat{\rho}_{IJ}^{(\pm)}$, and defining
 \begin{align*}
-  w_A &=
+  w_A &=\;
     i \left( w_+ + w_{AB}^{(+)} + w_{AC}^{(-)} \right)
-    - w_{AB}^{(-)} - w_{AC}^{(+)} \\
-  w_B &=
+    - w_{AB}^{(-)} - w_{AC}^{(+)}
+    + \frac{s_{AP}\chi_{AP}}{\rho_0} \hat{\rho}_P \\
+  w_B &=\;
     i \left( w_+ + w_{AB}^{(+)} + w_{BC}^{(+)} \right)
-    - w_{AB}^{(-)} - w_{AC}^{(-)} \\
-  w_C &=
-    i \left( w_+ + w_{AC}^{(-)} + w_{BC}^{(+)} \right)
-    - w_{AC}^{(+)} - w_{BC}^{(-)},
+    + w_{AB}^{(-)} - w_{BC}^{(-)}
+    + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+  w_C &=\;
+    i \left( w_+ - w_{AC}^{(-)} + w_{BC}^{(+)} \right)
+    - w_{AC}^{(+)} + w_{BC}^{(-)}
+    + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
 \end{align*}
   we can rewrite all the $\exp(\int d \mathbf{r} w\hat{\rho})$ type terms as
 \begin{align*}
-  \prod_{j}^{n_{D}N_{DA}}
+  \prod_{j}^{n_{D}P_{A}}
   \exp \left( -\omega_A(\mathbf{r}_j) \right)
-  \prod_{k}^{n_{D}N_{DB}}
-  \exp \left( -\omega_B(\mathbf{r}_k) \right).
-  \prod_{l}^{n_P}
-  \exp \left( -\omega_P(\mathbf{r}_l) \right).
+  \prod_{k}^{n_{D}P_{B}}
+  \exp \left( -\omega_B(\mathbf{r}_k) \right)
+  \prod_{m}^{n_{G}N_{}}
+  \exp \left( -\omega_C(\mathbf{r}_m) \right)
 \end{align*}
-where $\omega_A$ and $\omega_B$ are defined as
+where $\omega_A, \omega_B$ and $\omega_C$ are defined as
 \begin{align*}
   \omega_K(\mathbf{r}) = (h \ast w_K)(\mathbf{r})
-\end{align*}
-and $\omega_P$ is defined as
-\begin{align*}
-  \omega_P(\mathbf{r}) = (\Gamma \ast w_C)(\mathbf{r})
 \end{align*}
 Additionally, defining the bond transition probability $\Phi$ as
 \begin{align*}
@@ -514,27 +524,39 @@ Additionally, defining the bond transition probability $\Phi$ as
 \end{align*}
 we can rewrite the canonical partition function equation as
 \begin{align*}
-  Z_C =& \frac{1}{n_D!n_P! \left( \lambda_T^d \right)^{n_D+n_P}}
+  Z_C =& \frac{1}{n_D!n_G! \left( \lambda_T^d \right)^{n_D+n_G}}
     \frac{1}{\Omega}
     \int \hdots \int \mathcal{D} \{w\} \\
     &\times
     \exp \left(
       - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
       + i \rho_0 \int d\mathbf{r} w_+
-      - \sum_{IJ}
-      \frac{\rho_0}{\chi_{IJ}}
+      + \sum_{IJ,I \ne J, I \ne P}
+      - \frac{\rho_0}{\chi_{IJ}}
       \int d \mathbf{r}
       \left(
         w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
       \right)
     \right) \\
+    &\times
+    \exp \left(
+      - \sum_{i=1}^{n_D} \sum_{j=1}^{P-1}
+      \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
+           { 2 b^2 }
+      - \sum_{i=1}^{n_G} \sum_{j=1}^{N-1}
+      \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
+           { 2 b^2 }
+    \right) \\
     &\times \int d \mathbf{r}^{n_DN_D} \int d \mathbf{r}^{n_P}
       \prod_j^{n_D} \prod_k^{N_D-1}
       \Phi(\mathbf{r}_{j,k+1} - \mathbf{r}_{j,k}) \\
     &\times
-    \prod_{j}^{n_{D}N_{DA}} \exp \left( -\omega_A(\mathbf{r}_j) \right)
-    \prod_{k}^{n_{D}N_{DB}} \exp \left( -\omega_B(\mathbf{r}_k) \right).
-    \prod_{l}^{n_P}         \exp \left( -\omega_P(\mathbf{r}_l) \right)
+    \prod_{j}^{n_{D}P_{A}}
+    \exp \left( -\omega_A(\mathbf{r}_j) \right)
+    \prod_{k}^{n_{D}P_{B}}
+    \exp \left( -\omega_B(\mathbf{r}_k) \right)
+    \prod_{m}^{n_{G}N_{}}
+    \exp \left( -\omega_C(\mathbf{r}_m) \right)
 \end{align*}
 Then, we define $Q_D$ as
 \begin{align*}
@@ -598,81 +620,6 @@ where
     &- n_D \log Q_D - n_P \log Q_P
 \end{align*}
 
-\section{Grand Canonical Derivation}
-
-The grand canonical partition function is then given by
-\begin{align*}
-  Z_G(\mu_{D}, \mu_P, V, T) =
-    \sum_{n_D}^\infty \exp(\beta\mu_D n_D)
-    \sum_{n_P}^\infty \exp(\beta\mu_P n_P)
-    Z_C(n_D, n_P, V, T)
-\end{align*}
-Now let's define activities $z_D$ and $z_P$ as
-\begin{align*}
-  z_K =
-    z_{K0}
-    \exp \left(\beta \mu_K \right)
-\end{align*}
-where
-\begin{align*}
-  z_{D0} =
-    \frac{1}{\lambda_T^{3}}
-    \left( \frac{2\pi b^2}{3} \right)^{d/2(N_D-1)}
-\end{align*}
-and
-\begin{align*}
-  z_{P0} =
-    \frac{1}{\lambda_T^{3}}
-\end{align*}
-Now we can rewrite equation $Z_G$ as
-\begin{align*}
-  Z_G(\mu_D, \mu_P, V, T) =&
-    \frac{1}{\Omega}
-    \int \hdots \int \mathcal{D} \{w\} \\
-    &\times \exp \left(
-      - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
-      + i \rho_0 \int d\mathbf{r} w_+
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)} (\mathbf{r})^2
-      - \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)} (\mathbf{r})^2
-    \right) \\
-    &\times \sum_{n_D}^\infty \frac{(z_DVQ_D)^{n_D}}{n_D!}
-    \sum_{n_P}^\infty \frac{(z_PVQ_P)^{n_P}}{n_P!} \\
-    =& \frac{1}{\Omega}
-    \int \hdots \int \mathcal{D} \{w\} \\
-    &\times \exp \left(
-      - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
-      + i \rho_0 \int d\mathbf{r} w_+
-      - \sum_{IJ}
-      \frac{\rho_0}{\chi_{IJ}}
-      \int d \mathbf{r}
-      \left(
-        w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
-      \right)
-    \right) \\
-    &\times \exp (z_DVQ_D) \exp (z_PVQ_P)
-\end{align*}
-And finally, we get
-\begin{align*}
-  Z_G(\mu_D, \mu_P, V, T) =&
-    \frac{1}{\Omega}
-    \int \hdots \int \mathcal{D} \{w\}
-    \exp \left( - \mathcal{H}_G \left[\{w\} \right] \right)
-\end{align*}
-where
-\begin{align*}
-  \mathcal{H}_G[\{w\}] =&
-    \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
-    - i \rho_0 \int d\mathbf{r} w_+
-    + \sum_{IJ}
-    \frac{\rho_0}{\chi_{IJ}}
-    \int d \mathbf{r}
-    \left(
-      w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
-    \right)
-    % + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(+)}(\mathbf{r})^2
-    % + \frac{\rho_0}{\chi} \int d \mathbf{r} w_{AB}^{(-)}(\mathbf{r})^2 \\
-    &- z_D V Q_D - z_P V Q_P
-\end{align*}
 
 \section{Canonical 1S Update Derivation}
 

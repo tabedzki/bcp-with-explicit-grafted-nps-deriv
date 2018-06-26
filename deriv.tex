@@ -351,7 +351,7 @@ Let's now rearrange all the terms with any $\hat{\rho}$ in them to determine
         \hat{\rho}_{GC} \hat{\rho}_P
         +
         \left(
-          -i \hat{\rho}_{GC} w_{AC}^{(+)} - \hat{\rho}_{GC} w_{AC}^{(-)}
+          +i \hat{\rho}_{GC} w_{AC}^{(-)} + \hat{\rho}_{GC} w_{AC}^{(+)}
           -i \hat{\rho}_{GC} w_{BC}^{(+)} - \hat{\rho}_{GC} w_{BC}^{(-)}
         \right)
       \right]
@@ -393,12 +393,90 @@ Let's now rearrange all the terms with any $\hat{\rho}$ in them to determine
         \hat{\rho}_P
         +
         \left(
-          -i w_{AC}^{(+)} - w_{AC}^{(-)}
+          +i w_{AC}^{(-)} + w_{AC}^{(+)}
           -i w_{BC}^{(+)} - w_{BC}^{(-)}
         \right)
       \right]
     \right) \\
+  =
+    &\exp \left(
+      - \int d \mathbf{r} \hat{\rho}_{DA} w_A
+      - \int d \mathbf{r} \hat{\rho}_{DB} w_B
+      - \int d \mathbf{r} \hat{\rho}_{GC} w_C
+    \right) \\
 \end{align*}
+where
+\begin{align*}
+  w_A &=\;
+    i \left( w_+ + w_{AB}^{(+)} + w_{AC}^{(-)} \right)
+    - w_{AB}^{(-)} - w_{AC}^{(+)}
+    + \frac{s_{AP}\chi_{AP}}{\rho_0} \hat{\rho}_P \\
+  w_B &=\;
+    i \left( w_+ + w_{AB}^{(+)} + w_{BC}^{(+)} \right)
+    + w_{AB}^{(-)} - w_{BC}^{(-)}
+    + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+  w_C &=\;
+    i \left( w_+ - w_{AC}^{(-)} + w_{BC}^{(+)} \right)
+    + w_{AC}^{(+)} + w_{BC}^{(-)}
+    + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+\end{align*}
+Looking at these field definitions, we can generalize with a rule-based process.
+Here's how we could construct any $w_X$ where X is A, B, or C; J and K
+  are the other two of A, B, and C but K $\ne$ X:
+
+\begin{enumerate}
+  \item Start with
+  {
+    \color{red}
+    \begin{align*}
+      w_X &=\;
+        i \left( w_+ + w_{XJ}^{(+)} + w_{XK}^{(+)} \right)
+        - w_{XJ}^{(-)} - w_{XJ}^{(-)}
+        + \frac{s_{XP}\chi_{XP}}{\rho_0} \hat{\rho}_P \\
+    \end{align*}
+  }
+  Note that, for example if X is B and J is A, then $w_{XJ}$ is actually $w_{AB}$,
+    not $w_{BA}$.
+  As an example, let's go through the process for $w_C$.
+  We start with:
+  {
+    \color{red}
+    \begin{align*}
+      w_C &=\;
+        i \left( w_+ + w_{AC}^{(+)} + w_{BC}^{(+)} \right)
+        - w_{AC}^{(-)} - w_{BC}^{(-)}
+        + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+    \end{align*}
+  }
+
+  \item For any $XJ$ where $\chi_{XJ}$ is attractive ($s_{XJ}$ = -1), change any
+    $(+)$ to a $(-)$ and vice versa.
+  This turns $w_C$ into:
+  {
+    \color{red}
+    \begin{align*}
+      w_C &=\;
+        i \left( w_+ + w_{AC}^{(-)} + w_{BC}^{(+)} \right)
+        - w_{AC}^{(+)} - w_{BC}^{(-)}
+        + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+    \end{align*}
+  }
+
+  \item For any $w_{XJ}^{(-)}$ where $X > J$, multiply it by $-1$ (flip the sign).
+  This gives us our final $w_C$:
+  {
+    \color{green}
+    \begin{align*}
+      w_C &=\;
+        i \left( w_+ - w_{AC}^{(-)} + w_{BC}^{(+)} \right)
+        - w_{AC}^{(+)} + w_{BC}^{(-)}
+        + \frac{s_{BP}\chi_{BP}}{\rho_0} \hat{\rho}_P \\
+    \end{align*}
+  }
+\end{enumerate}
+
+============= IGNORE EVERYTHING BELOW HERE ==============
+
 Using the definitions of $\hat{\rho}_{IJ}^{(\pm)}$, and defining
 \begin{align*}
   w_A &=

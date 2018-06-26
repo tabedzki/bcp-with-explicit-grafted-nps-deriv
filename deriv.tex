@@ -6,7 +6,6 @@
 \usepackage{amsmath}
 
 \begin{document}
-
 \begin{center}
   \textbf{Weakly Compressible AB Diblock and a C-Grafted Nanorod with
   Smearing Derivation}
@@ -14,7 +13,7 @@
 
 \section{Canonical Ensemble Derivation (with $w_+$ and $w_{AC}^{(\pm)}$ fields)}
 
-The system is composed of $n_D$ AB diblock chains and an explicit, neutral
+The system is composed of $n_D$ A\\B diblock chains and an explicit, neutral
   nanoparticle with $n_G$ grafted chains of length $N$.
 Each diblock chain has $P_A + P_B = P$ segments.
 $\chi_{IJ}$ is the interaction strength between components $I$ and $J$
@@ -48,13 +47,13 @@ The nanoparticle density is given by
   \hat{\rho}_P(\mathbf{r}) =
     \frac{\rho_0}{4}
     \textrm{erfc} \left(
-      \frac{|\mathbf{u} \cdot (\mathbf{r} - \mathbf{r}_c)| - R_P}{\xi} 
+      \frac{|\mathbf{u} \cdot (\mathbf{r} - \mathbf{r}_c)| - L_P}{\xi} 
     \right)
     \textrm{erfc} \left(
-      \frac{|\mathbf{u} \times (\mathbf{r} - \mathbf{r}_c)| - L_P/2}{\xi}       
+      \frac{|\mathbf{u} \times (\mathbf{r} - \mathbf{r}_c)| - R_P/2}{\xi}       
     \right)
 \end{align*}
-where $R_P$ is the nanoparticle radius, $\rho_0$ is the bulk density,
+where $R_P$ is the nanoparticle radius, $L_P$ is the nanoparticle length, $\rho_0$ is the bulk density,
   and $\xi$ controls the nanoparticle interface width.
 The graft site distribution is defined as a thin shell at the surface of the
   nanoparticle defined as
@@ -110,10 +109,12 @@ where
   is the local total density.
 This gives us a canonical partition function of
 \begin{align*}
-  Z_C = \frac{1}{n_D!n_G! \left( \lambda_T^3 \right)^{n_D+n_G}}
+  Z_C = \frac{1}{n_D!n_G! \left( \lambda_T^d \right)^{n_D+n_G}}
     \int d \mathbf{r}^{n_DP} \int d \mathbf{r}^{n_GN}
     \exp \left( -\beta U_0 - \beta U_1 - \beta U_2 \right)
 \end{align*}
+where $d$ represents the dimensionality of the system.
+
 To prepare this for a particle-to-field transformation, let's define
 \begin{align*}
   \hat{\rho}_{AB}^{(\pm)} (\mathbf{r}) =&
@@ -254,7 +255,7 @@ Before moving on, to make our lives easier, let's define
 \end{align*}
 Now the canonical partition function looks like
 \begin{align*}
-  Z_C =& \frac{1}{n_D!n_G! \left( \lambda_T^3 \right)^{n_D+n_G}}
+  Z_C =& \frac{1}{n_D!n_G! \left( \lambda_T^d \right)^{n_D+n_G}}
     \frac{1}{\Omega}
     \int \hdots \int \mathcal{D} \{w\}
     \int d \mathbf{r}^{n_D P + n_G N} \\
@@ -435,7 +436,7 @@ Additionally, defining the bond transition probability $\Phi$ as
 \end{align*}
 we can rewrite the canonical partition function equation as
 \begin{align*}
-  Z_C =& \frac{1}{n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+  Z_C =& \frac{1}{n_D!n_P! \left( \lambda_T^d \right)^{n_D+n_P}}
     \frac{1}{\Omega}
     \int \hdots \int \mathcal{D} \{w\} \\
     &\times
@@ -476,7 +477,7 @@ We also define $Q_P$ as
 With these definitions, we get
 \begin{align*}
   Z_C =& \frac{V^{n_D+n_P}}
-              {n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+              {n_D!n_P! \left( \lambda_T^d \right)^{n_D+n_P}}
     \frac{1}{\Omega}
     \left( \frac{2\pi b^2}{3} \right)
       ^{(d/2)n_D(N_D-1)}
@@ -496,7 +497,7 @@ With these definitions, we get
 We can rewrite this as
 \begin{align*}
   Z_C =& \frac{V^{n_D+n_P}}
-              {n_D!n_P! \left( \lambda_T^3 \right)^{n_D+n_P}}
+              {n_D!n_P! \left( \lambda_T^d \right)^{n_D+n_P}}
     \frac{1}{\Omega}
     \left( \frac{2\pi b^2}{3} \right)
       ^{(d/2)n_D(N_D-1)} \\
@@ -1081,13 +1082,13 @@ and the particle density is given by
 
 From the 2-field model derivation,
 \begin{align*}
-  z_{D0,2} = \frac{1}{\lambda_T^3}
+  z_{D0,2} = \frac{1}{\lambda_T^d}
   \exp \left( -\frac{N_D\chi}{4}  \right)
   \left( \frac{2\pi b^2}{3} \right)^{d/2(N_D-1)} 
 \end{align*}
 And from the 3-field model derivation, (this document)
 \begin{align*}
-  z_{D0,3} = \frac{1}{\lambda_T^3}
+  z_{D0,3} = \frac{1}{\lambda_T^d}
   \left( \frac{2\pi b^2}{3} \right)^{d/2(N_D-1)} 
 \end{align*}
 Therefore, to compare 2-field and 3-field simulations, we need to take this

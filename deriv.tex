@@ -13,7 +13,7 @@
 
 \section{Canonical Ensemble Derivation (with $w_+$ and $w_{AC}^{(\pm)}$ fields)}
 
-The system is composed of $n_D$ A\textbackslash B diblock chains and an explicit, neutral
+The system is composed of $n_D$ AB diblock chains and an explicit, neutral
   nanoparticle with $n_G$ grafted chains of length $N$.
 Each diblock chain has $P_A + P_B = P$ segments.
 $\chi_{IJ}$ is the interaction strength between components $I$ and $J$
@@ -57,11 +57,24 @@ where $R_P$ is the nanoparticle radius, $L_P$ is the nanoparticle length, $\rho_
   and $\xi$ controls the nanoparticle interface width.
 The graft site distribution is defined as a thin shell at the surface of the
   nanoparticle defined as
-\begin{align*}
-  \Gamma_\sigma(\mathbf{r}) =&
-    \frac{| \nabla \Gamma(\mathbf{r}) |}
-         {\int d \mathbf{r^\prime} | \nabla \Gamma(\mathbf{r^\prime}) | }
-\end{align*}
+  % Changing the expression for Gamma to more closely resemble Jason's paper
+% \begin{align*}
+%   \Gamma_\sigma(\mathbf{r}) =&
+%     \frac{| \nabla \Gamma(\mathbf{r}) |}
+%          {\int d \mathbf{r^\prime} | \nabla \Gamma(\mathbf{r^\prime}) | }
+% \end{align*}
+\begin{align}
+  \Gamma_{\sigma,\text{uniform}}  (\mathbf{r}) =& 
+  \frac{1}{\sigma_0} \exp 
+  \left[ -
+     \left(
+      \frac{3(\vert r \vert - R_p - \xi) }
+        {2b^2}
+    \right)^2
+  \right]
+\end{align},
+where $\sigma_0 $ to used to make this expression a probability density function. 
+
 Note that with this definition of $\Gamma_\sigma$, it's important to make sure
   to use odd numbers of grid points in each dimension to avoid Nyquist mode
   problems.
@@ -75,11 +88,11 @@ The harmonic bond potential between connected segments is given by
     \sum_{i=1}^{n_G} \sum_{j=1}^{N-1}
     \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
          { 2 b^2 }
-    % +
-    % \underbrace{\sum_{i=1}^{n_G}  \frac{3}{2b^2} 
-    % \vert \mathbf{r}_{i,1} - \mathbf{r}_{i,\perp} \vert^2}_
-    % {\substack{\text{contribution from bonding } \\
-    % \text{the chain  to the ghost site }}}
+    +
+    \underbrace{\sum_{i=1}^{n_G}  \frac{3}{2b^2} 
+    \vert \mathbf{r}_{i,1} - \mathbf{r}_{i,\perp} \vert^2}_
+    {\substack{\text{contribution from bonding } \\
+    \text{the chain  to the ghost site }}}
 \end{align*}
 The nonbonded interaction potential is given by
 \begin{align*}
@@ -118,7 +131,7 @@ This gives us a canonical partition function of
     \int d \mathbf{r}^{n_DP} \int d \mathbf{r}^{n_GN}
     \exp \left( -\beta U_0 - \beta U_1 - \beta U_2 \right)
 \end{align*}
-where $d$ represents the dimensionality of the system.
+
 
 To prepare this for a particle-to-field transformation, let's define
 \begin{align*}
@@ -291,9 +304,9 @@ Now the canonical partition function looks like
       - \sum_{i=1}^{n_G} \sum_{j=1}^{N-1}
       \frac{3 \left| \mathbf{r}_{i,j+1} - \mathbf{r}_{i,j} \right| ^ 2 }
            { 2 b^2 } 
-      % -
-      % \sum_{i=1}^{n_G}  \frac{3\vert \mathbf{r}_{i,1} - \mathbf{r}_{i,\perp} \vert^2} %numerator
-      % {2b^2}  % denominator
+      -
+      \sum_{i=1}^{n_G}  \frac{3\vert \mathbf{r}_{i,1} - \mathbf{r}_{i,\perp} \vert^2} %numerator
+      {2b^2}  % denominator
     \right) \\
     &\times
     \exp \left(
@@ -440,64 +453,61 @@ where
     - w_{AC}^{(+)} + w_{BC}^{(-)}
     + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
 \end{align*}
-% Looking at these field definitions, we can generalize with a rule-based process.
-% Here's how we could construct any $w_X$ where X is A, B, or C; J and K
-%   are the other two of A, B, and C but K $\ne$ X:
+Looking at these field definitions, we can generalize with a rule-based process.
+Here's how we could construct any $w_X$ where X is A, B, or C; J and K
+  are the other two of A, B, and C but K $\ne$ X:
 
-% \begin{enumerate}
-%   \item Start with
-%   {
-%     \color{green}  %verified by Chris and Ben
-%     \begin{align*}
-%       w_X &=\;
-%         i \left( w_+ + w_{XJ}^{(+)} + w_{XK}^{(+)} \right)
-%         - w_{XJ}^{(-)} - w_{XJ}^{(-)}
-%         + \frac{s_{XP}\chi_{XP}}{\rho_0} \hat{\rho}_P \\
-%     \end{align*}
-%   }
-%   Note that, for example if X is B and J is A, then $w_{XJ}$ is actually $w_{AB}$,
-%     not $w_{BA}$.
-%   As an example, let's go through the process for $w_C$.
-%   We start with:
-%   {
-%     \color{green}  %verified by Chris and Ben
-%     \begin{align*}
-%       w_C &=\;
-%         i \left( w_+ + w_{AC}^{(+)} + w_{BC}^{(+)} \right)
-%         - w_{AC}^{(-)} - w_{BC}^{(-)}
-%     + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
-%     \end{align*}
-%   }
-
-%   \item For any $XJ$ where $\chi_{XJ}$ is attractive ($s_{XJ}$ = -1), change any
-%     $(+)$ to a $(-)$ and vice versa.
-%   This turns $w_C$ into:
-%   {
-%   \color{green}  %verified by Chris and Ben
-%     \begin{align*}
-%       w_C &=\;
-%         i \left( w_+ + w_{AC}^{(-)} + w_{BC}^{(+)} \right)
-%         - w_{AC}^{(+)} - w_{BC}^{(-)}
-%     + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
-%     \end{align*}
-%   }
-
-%   \item For any $w_{XJ}^{(-)}$ where $X > J$, multiply it by $-1$ (flip the sign).
-%   This gives us our final $w_C$:  
-%   {
-%     \color{green}
-%     \begin{align*}
-%       w_C &=\;
-%         i \left( w_+ - w_{AC}^{(-)} + w_{BC}^{(+)} \right)
-%         - w_{AC}^{(+)} + w_{BC}^{(-)}
-%     + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
-%     \end{align*}
-%   }
-% \end{enumerate}
+\begin{enumerate}
+  \item Start with
+  {
+       %verified by Chris and Ben
+    \begin{align*}
+      w_X &=\;
+        i \left( w_+ + w_{XJ}^{(+)} + w_{XK}^{(+)} \right)
+        - w_{XJ}^{(-)} - w_{XJ}^{(-)}
+        + \frac{s_{XP}\chi_{XP}}{\rho_0} \hat{\rho}_P \\
+    \end{align*}
+  }
+  Note that, for example if X is B and J is A, then $w_{XJ}$ is actually $w_{AB}$,
+    not $w_{BA}$.
+  As an example, let's go through the process for $w_C$.
+  We start with:
+  {
+       %verified by Chris and Ben
+    \begin{align*}
+      w_C &=\;
+        i \left( w_+ + w_{AC}^{(+)} + w_{BC}^{(+)} \right)
+        - w_{AC}^{(-)} - w_{BC}^{(-)}
+    + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
+    \end{align*}
+  }
+  \item For any $XJ$ where $\chi_{XJ}$ is attractive ($s_{XJ}$ = -1), change any
+    $(+)$ to a $(-)$ and vice versa.
+  This turns $w_C$ into:
+  {
+     %verified by Chris and Ben
+    \begin{align*}
+      w_C &=\;
+        i \left( w_+ + w_{AC}^{(-)} + w_{BC}^{(+)} \right)
+        - w_{AC}^{(+)} - w_{BC}^{(-)}
+    + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
+    \end{align*}
+  }
+  \item For any $w_{XJ}^{(-)}$ where $X > J$, multiply it by $-1$ (flip the sign).
+  This gives us our final $w_C$:  
+  {     
+    \begin{align*}
+      w_C &=\;
+        i \left( w_+ - w_{AC}^{(-)} + w_{BC}^{(+)} \right)
+        - w_{AC}^{(+)} + w_{BC}^{(-)}
+    + \frac{s_{CP}\chi_{CP}}{\rho_0} \hat{\rho}_P \\
+    \end{align*}
+  }
+\end{enumerate}
 
 % ============= IGNORE EVERYTHING BELOW HERE ==============
 
-Using the definitions of $\hat{\rho}_{IJ}^{(\pm)}$, and defining
+\noindent Using the definitions of $\hat{\rho}_{IJ}^{(\pm)}$, and defining
 \begin{align*}
   w_A &=\;
     i \left( w_+ + w_{AB}^{(+)} + w_{AC}^{(-)} \right)
@@ -551,15 +561,24 @@ we can rewrite the canonical partition function equation as
       \left(\prod_j^{n_D} 
       \left( \prod_k^{P-1}
       \Phi(\mathbf{r}_{j,k+1} - \mathbf{r}_{j,k})\right) 
-      \delta \left(
-        \mathbf{r}_{j,1} - \mathbf{r}_{j,\perp} 
-      \right)  \right)  
-    \left(   \prod_{\ell=1}^{n_D} \prod_{m=1}^{N-1}  
-      \Phi (\mathbf{r}_{\ell,m+1} - \mathbf{r}_{\ell,m})\right)
+% 
+      \right)  
+    \left(   \prod_{\ell=1}^{n_G} 
+    \left(
+      \prod_{m=1}^{N-1}  
+      \Phi (\mathbf{r}_{\ell,m+1} - \mathbf{r}_{\ell,m})
+      \Phi \left(
+        \mathbf{r}_{j,1} - \mathbf{r}_{j,\perp}
+        \right) \right)
+      % \delta \left(
+      %   \mathbf{r}_{j,1} - \mathbf{r}_{j,\perp} 
+      % \right)  
+      \right) 
         \\ 
     & \times  
     \left( \frac{3}{2\pi b^2} \right) 
-    ^ {(\frac{d}{2}) (n_D (P-1) + n_G \cdot (N-1 ))  }
+    ^ {(\frac{d}{2}) (n_D (P-1) + n_G \cdot (N ))  }
+    % ^ {(\frac{d}{2}) (n_D (P-1) + n_G \cdot (N-1 ))  }
     \\
     &\times
     \prod_{j}^{n_{D}P_{A}}

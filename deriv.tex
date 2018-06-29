@@ -58,21 +58,22 @@
   The graft site distribution is defined as a thin shell at the surface of the
     nanoparticle defined as
     % Changing the expression for Gamma to more closely resemble Jason's paper
-  % \begin{align*}
-  %   \Gamma_\sigma(\mathbf{r}) =&
-  %     \frac{| \nabla \Gamma(\mathbf{r}) |}
-  %          {\int d \mathbf{r^\prime} | \nabla \Gamma(\mathbf{r^\prime}) | }
-  % \end{align*}
-  \begin{align}
-    \Gamma_{\sigma,\text{uniform}}  (\mathbf{r}) =& 
-    \frac{1}{\sigma_0} \exp 
-    \left[ -
-       \left(
-        \frac{3(\vert r \vert - R_p - \xi) }
-          {2b^2}
-      \right)^2
-    \right]
-  \end{align}
+  \begin{align*}
+    \Gamma_\sigma(\mathbf{r}) 
+    =&
+      \frac{| \nabla \Gamma(\mathbf{r}) |}
+           {\int d \mathbf{r^\prime} | \nabla \Gamma(\mathbf{r^\prime}) | }
+  \end{align*}
+  % \begin{align}
+  %   \Gamma_{\sigma,\text{uniform}}  (\mathbf{r}) =& 
+  %   \frac{1}{\sigma_0} \exp 
+  %   \left[ -
+  %      \left(
+  %       \frac{3(\vert r \vert - R_p - \xi) }
+  %         {2b^2}
+  %     \right)^2
+  %   \right]
+  % \end{align}
   where $\sigma_0 $ to used to make this expression a probability density function. 
   
   Note that with this definition of $\Gamma_\sigma$, it's important to make sure
@@ -94,7 +95,7 @@
       {\substack{\text{contribution from bonding } \\
       \text{the chain  to the ghost site }}}
   \end{align*}
-  The nonbonded interaction potential is given by
+  The non-bonded interaction potential is given by
   \begin{align*}
     \beta U_1 =&
       \frac{\chi_{AB}}{\rho_0} \int d\mathbf{r} \hat{\rho}_{DA} \hat{\rho}_{DB}
@@ -608,14 +609,36 @@
   \end{align*}
   where $X_{j+1}$ is either A or B depending on type of segment $j+1$
     and $q_D(1, \mathbf{r}) = \exp(-\omega_A(\mathbf{r}))$.
-  
-    We also define $Q_G$ as
-    \begin{align}
-      Q_G = \frac{1}{V}  \int d \mathbf{r}{q_G} (N_G, \mathbf{r})
-    \end{align}
+  \\
+    % We also define $Q_G$ as
+    % \begin{align*}
+    %   Q_G = \frac{1}{V}  \int d \mathbf{r}{q_G} (N_G, \mathbf{r})
+    % \end{align*}
+
+    \noindent 
+    The definition of the partition function for a grafted chain is. 
+      \begin{align*}
+    q_G(j+1, \mathbf{r}) = \exp(-\omega_{g_{j+1}}(\mathbf{r}))
+      \int d \mathbf{r}^\prime \Phi(\mathbf{r} - \mathbf{r}^\prime)
+      q_G(j, \mathbf{r})  
+  \end{align*}
+  for $j=0,\ \cdots,\ N-2$. For $j=N-1$
+  \begin{align*}
+    q_G(N, \mathbf{r}) 
+    &=
+    \exp(-\omega_{g_{Nx}}(\mathbf{r})) 
+    \Phi(\mathbf{r}_N - \mathbf{r}_\perp)
+  \end{align*}
+
+
   % We also define $Q_P$ as
   % \begin{align*}
   %   Q_P = \frac{1}{V} \int d\mathbf{r} \exp (-\omega_P)
+  % \end{align*}
+
+  % We can then rewrite $q_G$ as 
+  % \begin{align*}
+  %   \left(q_G\right)
   % \end{align*}
   With these definitions, we get
   \begin{align*}
@@ -629,15 +652,21 @@
       &\times \exp \left(
         - \frac{\rho_0}{2\kappa} \int d \mathbf{r} w_+(\mathbf{r})^2
         + i \int d\mathbf{r} w_+ \left(\rho_0 -\hat{\rho}_{P}  \right)
-        - \sum_{IJ,I \ne J, I \ne P}
+        % 
+        - i \int d \mathbf{r} \hat{\rho}_{P}  w_+ %possibly? 
+      \right) \\
+      &\times
+      - \sum_{IJ,I \ne J, I \ne P}
         \frac{\rho_0}{\chi_{IJ}}
         \int d \mathbf{r}
         \left(
           w_{IJ}^{(+)} (\mathbf{r})^2 + w_{IJ}^{(-)} (\mathbf{r})^2
-        \right) 
-        - i \int d \mathbf{r} \hat{\rho}_{P}  w_+ %possibly? 
-      \right) \\
-      &\times Q_D^{n_D} Q_G^{n_G}
+        \right) \\
+      &\times Q_D^{n_D}\\
+      & \times
+      - n_G \int d \mathbf{r} \sigma_G(\mathbf{r}) 
+        \ln(q_G[\mathbf{r};\omega_G])
+      % 
   \end{align*}
   We can rewrite this as
   \begin{align*}
@@ -668,7 +697,9 @@
       &  
       % \left( - i \int d \mathbf{r} \hat{\rho}_{P}  w_+ %possibly? 
       % \right)
-      - n_D \log Q_D - n_G \log Q_G
+      - n_D \log Q_D 
+      - n_G \int d \mathbf{r} \sigma_G(\mathbf{r}) 
+        \ln(q_G[\mathbf{r};\omega_G])
   \end{align*}
   
   
@@ -1100,8 +1131,7 @@
       }
   \end{align*}
   
-  \section{Calculating Densities}
-  
+
   \subsection{Canonical Ensemble}
   
   In the Canonical Ensemble, the polymer densities are given by
@@ -1128,31 +1158,31 @@
       = \frac{n_P}{V Q_P} e^{-\omega_P(\mathbf{r})}
   \end{align*}
   
-  \subsection{Grand Canonical Ensemble}
+  % \subsection{Grand Canonical Ensemble}
   
-  In the Grand Canonical Ensemble, the polymer densities are given by
-  \begin{align*}
-    \rho_{DA,c} &=
-      -z_D V \frac{\delta Q_D}{\delta \omega_A(\mathbf{r})}
-      = z_D
-      \sum_{j=1}^{P_A}
-      q_D(j, \mathbf{r})
-      e^{\omega_A(\mathbf{r})}
-      q_D^\dagger(P-j, \mathbf{r}) \\
-    \rho_{DB,c} &=
-      -z_D \frac{\delta Q_D}{\delta \omega_B(\mathbf{r})}
-      = z_D
-      \sum_{j=P_A+1}^{P}
-      q_D(j, \mathbf{r})
-      e^ {\omega_B(\mathbf{r})}
-      q_D^\dagger(P-j, \mathbf{r})
-  \end{align*}
-  and the particle density is given by
-  \begin{align*}
-    \rho_P(\mathbf{r}) =
-      -z_P \frac{\delta Q_P}{\delta \omega_P(\mathbf{r})}
-      = z_P e^{-\omega_P(\mathbf{r})}
-  \end{align*}
+  % In the Grand Canonical Ensemble, the polymer densities are given by
+  % \begin{align*}
+  %   \rho_{DA,c} &=
+  %     -z_D V \frac{\delta Q_D}{\delta \omega_A(\mathbf{r})}
+  %     = z_D
+  %     \sum_{j=1}^{P_A}
+  %     q_D(j, \mathbf{r})
+  %     e^{\omega_A(\mathbf{r})}
+  %     q_D^\dagger(P-j, \mathbf{r}) \\
+  %   \rho_{DB,c} &=
+  %     -z_D \frac{\delta Q_D}{\delta \omega_B(\mathbf{r})}
+  %     = z_D
+  %     \sum_{j=P_A+1}^{P}
+  %     q_D(j, \mathbf{r})
+  %     e^ {\omega_B(\mathbf{r})}
+  %     q_D^\dagger(P-j, \mathbf{r})
+  % \end{align*}
+  % and the particle density is given by
+  % \begin{align*}
+  %   \rho_P(\mathbf{r}) =
+  %     -z_P \frac{\delta Q_P}{\delta \omega_P(\mathbf{r})}
+  %     = z_P e^{-\omega_P(\mathbf{r})}
+  % \end{align*}
   
   % \section{Comparing $z_D$ values with 2 Field Model}
   
@@ -1169,7 +1199,7 @@
   % \end{align*}
   % Therefore, to compare 2-field and 3-field simulations, we need to take this
   %   into account to make sure $\mu_D$ matches between them.
-  % Thus, given a 3-field model using $z_{D,3}$, the corresponsing value of
+  % Thus, given a 3-field model using $z_{D,3}$, the corresponding value of
   %   $z_{D,2}$ necessary to match a 2-field model is
   % \begin{align*}
   %   z_{D,2} = \exp \left( -\frac{N_D\chi}{4}  \right) z_{D,3}

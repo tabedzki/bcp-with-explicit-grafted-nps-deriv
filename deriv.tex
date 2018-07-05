@@ -605,7 +605,7 @@
   \begin{align*}
     q_D(j+1, \mathbf{r}) = \exp(-\omega_{X_{j+1}}(\mathbf{r}))
       \int d \mathbf{r}^\prime \Phi(\mathbf{r} - \mathbf{r}^\prime)
-      q(j, \mathbf{r})  
+      q(j, \mathbf{r}'`')  
   \end{align*}
   where $X_{j+1}$ is either A or B depending on type of segment $j+1$
     and $q_D(1, \mathbf{r}) = \exp(-\omega_A(\mathbf{r}))$.
@@ -665,7 +665,7 @@
       &\times Q_D^{n_D}\\
       & \times
       - n_G \int d \mathbf{r} \sigma_G(\mathbf{r}) 
-        \ln(q_G[\mathbf{r};\omega_G])
+        \ln q_G[\mathbf{r};\omega_G] 
       % 
   \end{align*}
   We can rewrite this as

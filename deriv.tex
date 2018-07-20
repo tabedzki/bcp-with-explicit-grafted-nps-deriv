@@ -699,9 +699,42 @@
       % \right)
       - n_D \log Q_D 
       - n_G \int d \mathbf{r} \sigma_G(\mathbf{r}) 
-        \ln(q_G[\mathbf{r};\omega_G])
+        \ln(q_G[\mathbf{r};\omega_G]) 
   \end{align*}
-  
+ 
+ Below is the derivation of the system for a variable version of graft chains and such.
+  \begin{align*}
+    \frac{\delta H}{\delta w_{AB}^{(+)}} 
+    &= \frac{2 \rho_0}{\chi_{AB}} 
+    + (\rho_{DA,c} * h)(\text{flag} ? -1 : i)
+    + (\rho_{DB,c} * h)(\text{flag} ? -1 : i)
+    \\
+    \frac{\delta H}{\delta w_{AB}^{(-)}} 
+    &= \frac{2 \rho_0}{\chi_{AB}} 
+    + (\rho_{DA,c} * h)(\text{flag} ? i : -1)
+    + (\rho_{DB,c} * h)(\text{flag} ? -i : +1)
+    \\
+    \frac{\delta H}{\delta w_{AC}^{(+)}} 
+    &= \frac{2 \rho_0}{\chi_{AC}} 
+    + (\rho_{DA,c} * h)(\text{flag} ? -1 : i)
+    + (\rho_{DC,c} * h)(\text{flag} ? -1 : i)
+    \\
+    \frac{\delta H}{\delta w_{AC}^{(-)}} 
+    &= \frac{2 \rho_0}{\chi_{AC}} 
+    + (\rho_{DA,c} * h)(\text{flag} ? i : -1)
+    + (\rho_{DC,c} * h)(\text{flag} ? -i : +1)
+    \\
+    \frac{\delta H}{\delta w_{BC}^{(+)}} 
+    &= \frac{2 \rho_0}{\chi_{BC}} 
+    + (\rho_{DB,c} * h)(\text{flag} ? -1 : i)
+    + (\rho_{DC,c} * h)(\text{flag} ? -1 : i)
+    \\
+    \frac{\delta H}{\delta w_{BC}^{(-)}} 
+    &= \frac{2 \rho_0}{\chi_{BC}} 
+    + (\rho_{DB,c} * h)(\text{flag} ? i : -1)
+    + (\rho_{DC,c} * h)(\text{flag} ? -i : +1)
+    \\
+  \end{align*}
   
   \section{Canonical 1S Update Derivation}
   

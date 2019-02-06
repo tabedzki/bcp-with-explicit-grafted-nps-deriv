@@ -47,10 +47,10 @@
     \hat{\rho}_P(\mathbf{r}) =
       \frac{\rho_0}{4}
       \textrm{erfc} \left(
-        \frac{|\mathbf{u} \cdot (\mathbf{r} - \mathbf{r}_c)| - L_P}{\xi} 
+        \frac{|\mathbf{u} \cdot (\mathbf{r} - \mathbf{r}_c)| - L_P/2}{\xi} 
       \right)
       \textrm{erfc} \left(
-        \frac{|\mathbf{u} \times (\mathbf{r} - \mathbf{r}_c)| - R_P/2}{\xi}       
+        \frac{|\mathbf{u} \times (\mathbf{r} - \mathbf{r}_c)| - R_P}{\xi}       
       \right)
   \end{align*}
   where $R_P$ is the nanoparticle radius, $L_P$ is the nanoparticle length, $\rho_0$ is the bulk density,
@@ -776,11 +776,11 @@
       \frac{\rho_0}{\kappa} \hat{w}_+^t
       - i \hat{h}^2 \phi_D \rho_0 N_D
         (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) i \hat{w}_+^t
-      - i \phi_g \hat{g}_{C} \rho_0 \hat{h}^2 i \hat{w}_+^t \\
+      - i \phi_g N_G \hat{g}_{C} \rho_0 \hat{h}^2 i \hat{w}_+^t \\
     &= \frac{\rho_0}{\kappa} \hat{w}_+^t
       + \hat{h}^2 \phi_D \rho_0 N_D
         (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB}) \hat{w}_+^t
-      + \phi_g \hat{g}_{C} \rho_0 \hat{h}^2 \hat{w}_+^t
+      + \phi_g N_G \hat{g}_{C} \rho_0 \hat{h}^2 \hat{w}_+^t
   \end{align*}
   Assembling the pieces, we get
   \begin{align*}
@@ -806,14 +806,14 @@
     \frac{\rho_0}{\kappa}
         + \hat{h}^2 \phi_D \rho_0 N_D
           (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
-       + \phi_g \hat{g}_{C} \rho_0 \hat{h}^2
+       + \phi_g N_G \hat{g}_{C} \rho_0 \hat{h}^2
   \end{align*}
   If we also let $B$ and $F$ equal
   \begin{align*}
     B &= A - \frac{\rho_0}{\kappa} \\
       &= \hat{h}^2 \phi_D \rho_0 N_D
           (\hat{g}_{AA} + 2 \hat{g}_{AB} + \hat{g}_{BB})
-       + \phi_g \hat{g}_{C} \rho_0 \hat{h}^2 \\ 
+       + \phi_g N_G \hat{g}_{C} \rho_0 \hat{h}^2 \\ 
     F &= - i \rho_0 \delta (\mathbf{k})
          + i ( \hat{\rho}_{DA,c} \hat{h}
               + \hat{\rho}_{DB,c} \hat{h}
